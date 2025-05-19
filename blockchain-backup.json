@@ -1,0 +1,15 @@
+{
+  "chain": [
+    {
+      "index": 0,
+      "timestamp": 1747592584092,
+      "data": {
+        "message": "Genesis Block"
+      },
+      "previousHash": "0",
+      "hash": "54187151f772305a0ce29dc3ef64b917ac6dfea268ceefb9f2ab613c4195bab0",
+      "nonce": 0
+    }
+  ],
+  "pendingTransactions": []
+}

@@ -1,0 +1,57 @@
+version: '3'
+services:
+  node1:
+    build: .
+    ports:
+      - "3001:3000"
+      - "6001:6001"
+    environment:
+      - API_PORT=3000
+      - P2P_PORT=6001
+      - INITIAL_PEERS=
+      - DB_URI=mongodb://mongo:27017/blockchain-node1
+    depends_on:
+      - mongo
+    restart: always
+
+  node2:
+    build: .
+    ports:
+      - "3002:3000"
+      - "6002:6001"
+    environment:
+      - API_PORT=3000
+      - P2P_PORT=6001
+      - INITIAL_PEERS=ws://node1:6001
+      - DB_URI=mongodb://mongo:27017/blockchain-node2
+    depends_on:
+      - mongo
+      - node1
+    restart: always
+
+  node3:
+    build: .
+    ports:
+      - "3003:3000"
+      - "6003:6001"
+    environment:
+      - API_PORT=3000
+      - P2P_PORT=6001
+      - INITIAL_PEERS=ws://node1:6001,ws://node2:6001
+      - DB_URI=mongodb://mongo:27017/blockchain-node3
+    depends_on:
+      - mongo
+      - node1
+      - node2
+    restart: always
+
+  mongo:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: always
+
+volumes:
+  mongodb_data:
