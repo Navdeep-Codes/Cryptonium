@@ -16,9 +16,9 @@ module.exports = {
         [],
         
     // Security
-    JWT_SECRET: process.env.JWT_SECRET || 'your-strong-secret-key-change-in-production',
+    JWT_SECRET: process.env.JWT_SECRET || 'crytonuium',
     JWT_EXPIRATION: '24h',
     
     // Database (for persistence)
-    DB_URI: process.env.DB_URI || 'mongodb://localhost:27017/blockchain'
-};
+    DB_URI: process.env.DB_URI || 'mongodb+srv://navdeep13dps:e6jbmACne2Vy5Qor@blockchaindata.w4pse2t.mongodb.net/?retryWrites=true&w=majority&appName=BlockchainData'
+};      

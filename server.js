@@ -174,50 +174,74 @@ app.post('/auth/login', async (req, res) => {
 
 // Get user profile and balance
 app.get('/user/profile', authMiddleware, (req, res) => {
-    const balance = blockchain.getBalanceOfAddress(req.user.address);
-    
-    res.json({
-        username: req.user.username,
-        address: req.user.address,
-        balance,
-        isAdmin: req.user.isAdmin
-    });
+    try {
+        // Check if user object exists and has required properties
+        if (!req.user || !req.user.address) {
+            return res.status(400).json({ error: 'Invalid user data in request' });
+        }
+        
+        const balance = blockchain.getBalanceOfAddress(req.user.address);
+        
+        res.json({
+            username: req.user.username,
+            address: req.user.address,
+            balance,
+            isAdmin: req.user.isAdmin || false
+        });
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        res.status(500).json({ error: 'Failed to retrieve user profile', details: error.message });
+    }
 });
 
 // Create a new transaction
 app.post('/transaction', authMiddleware, (req, res) => {
-    const { to, amount } = req.body;
-    
-    if (!to || !amount) {
-        return res.status(400).json({ error: 'Recipient address and amount are required' });
+    try {
+        const { to, amount } = req.body;
+        
+        // Improved validation with specific error messages
+        if (!to) {
+            return res.status(400).json({ error: 'Recipient address (to) is required' });
+        }
+        
+        if (!amount) {
+            return res.status(400).json({ error: 'Transaction amount is required' });
+        }
+        
+        if (isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
+            return res.status(400).json({ error: 'Amount must be a positive number' });
+        }
+        
+        // Check if user has enough balance
+        const balance = blockchain.getBalanceOfAddress(req.user.address);
+        if (parseFloat(amount) > balance) {
+            return res.status(400).json({ error: 'Insufficient balance', available: balance });
+        }
+        
+        // Create the transaction
+        const transaction = {
+            from: req.user.address,
+            to,
+            amount: parseFloat(amount),
+            timestamp: Date.now()
+        };
+        
+        // In a real implementation, we would sign the transaction with the user's private key
+        
+        const result = blockchain.createTransaction(transaction);
+        
+        if (!result.success) {
+            return res.status(400).json({ error: result.message });
+        }
+        
+        res.json({ 
+            message: 'Transaction created successfully',
+            transaction
+        });
+    } catch (error) {
+        console.error('Error creating transaction:', error);
+        res.status(500).json({ error: 'Failed to create transaction', details: error.message });
     }
-    
-    // Check if user has enough balance
-    const balance = blockchain.getBalanceOfAddress(req.user.address);
-    if (amount > balance) {
-        return res.status(400).json({ error: 'Insufficient balance' });
-    }
-    
-    // Create the transaction
-    const transaction = {
-        from: req.user.address,
-        to,
-        amount: parseFloat(amount),
-        timestamp: Date.now()
-    };
-    
-    // In a real implementation, we would sign the transaction with the user's private key
-    
-    const result = blockchain.createTransaction(transaction);
-    
-    if (!result.success) {
-        return res.status(400).json({ error: result.message });
-    }
-    
-    res.json({ 
-        message: 'Transaction created successfully',
-        transaction
-    });
 });
 
 // Mine transactions

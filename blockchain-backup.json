@@ -2,13 +2,34 @@
   "chain": [
     {
       "index": 0,
-      "timestamp": 1747592584092,
-      "data": {
-        "message": "Genesis Block"
-      },
+      "timestamp": 1747836410539,
+      "data": [],
       "previousHash": "0",
-      "hash": "54187151f772305a0ce29dc3ef64b917ac6dfea268ceefb9f2ab613c4195bab0",
-      "nonce": 0
+      "hash": "33ed84f08c3c8999b2cdaf52cf4c44cad676b5c12569a71cb09cd39d198e6ae0",
+      "nonce": 0,
+      "difficulty": 4
+    },
+    {
+      "index": 1,
+      "timestamp": 1747836466512,
+      "data": [
+        {
+          "from": "BLOCKCHAIN_REWARD",
+          "to": "wallet_4d9119cd142b44976628acecc15d4990eb6671cf",
+          "amount": 50,
+          "tokenType": "CTNM",
+          "data": {
+            "type": "mining_reward"
+          },
+          "timestamp": 1747836466511,
+          "signature": null,
+          "hash": "e3f1950ea4959c90b92f905613b70d278689c98b4a2b458950da10c8f880c6ee"
+        }
+      ],
+      "previousHash": "33ed84f08c3c8999b2cdaf52cf4c44cad676b5c12569a71cb09cd39d198e6ae0",
+      "hash": "0000052f3ec0962565cfad2a9326042e6ec7fbf70e9a4b03c50d5e565758a576",
+      "nonce": 69927,
+      "difficulty": 4
     }
   ],
   "pendingTransactions": []
