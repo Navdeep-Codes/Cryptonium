@@ -1,0 +1,84 @@
+/* Forms Component Styles */
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--gray-light);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-normal);
+    background-color: white;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.1);
+}
+
+.form-group input[type="number"] {
+    text-align: right;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon input {
+    padding-right: 40px;
+}
+
+.input-with-icon .icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray);
+}
+
+.form-help {
+    margin-top: 4px;
+    font-size: var(--font-small);
+    color: var(--gray);
+}
+
+.form-error {
+    margin-top: 4px;
+    font-size: var(--font-small);
+    color: var(--danger);
+}
+
+.form-inline {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.form-inline .form-group {
+    flex: 1;
+}
+
+/* Form validation styling */
+input:invalid,
+select:invalid,
+textarea:invalid {
+    border-color: var(--danger);
+}
+
+input:focus:invalid,
+select:focus:invalid,
+textarea:focus:invalid {
+    box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.1);
+}

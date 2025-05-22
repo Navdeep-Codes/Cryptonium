@@ -23,6 +23,12 @@ class ConsensusEngine {
         return { nonce, hash };
     }
     
+    // Add this function - it was missing
+    static calculateBlockHash(block) {
+        return SHA256(block.index + block.timestamp + JSON.stringify(block.data) + 
+                block.previousHash + block.nonce).toString();
+    }
+    
     static proofOfStake(validators, currentValidator) {
         // Simple PoS implementation based on stake
         // In a real implementation, this would consider stake amount, coin age, etc.
@@ -52,8 +58,7 @@ class ConsensusEngine {
         }
         
         // Check block hash
-        const hash = SHA256(block.index + block.timestamp + JSON.stringify(block.data) + 
-                    block.previousHash + block.nonce).toString();
+        const hash = this.calculateBlockHash(block);
         
         if (hash !== block.hash) {
             return { valid: false, reason: 'Invalid hash' };

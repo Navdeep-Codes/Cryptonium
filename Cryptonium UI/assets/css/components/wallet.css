@@ -1,0 +1,228 @@
+/* Wallet Component Styles */
+
+.wallet-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.wallet-card {
+    background-color: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+.wallet-header {
+    padding: var(--spacing-lg);
+    background-image: linear-gradient(to right, var(--primary-dark), var(--primary));
+    color: white;
+}
+
+.wallet-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.wallet-title h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.wallet-balance {
+    text-align: center;
+    padding: var(--spacing-md) 0;
+}
+
+.balance-value {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.balance-currency {
+    font-size: 1rem;
+    margin-left: var(--spacing-xs);
+}
+
+.wallet-body {
+    padding: var(--spacing-lg);
+}
+
+.wallet-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.info-label {
+    font-size: var(--font-small);
+    color: var(--secondary);
+}
+
+.info-value {
+    font-weight: 500;
+}
+
+.address-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: var(--light);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+}
+
+.wallet-address {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Courier New', monospace;
+    white-space: nowrap;
+}
+
+/* Wallet Actions */
+.wallet-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.action-card {
+    background-color: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+}
+
+.action-card h3 {
+    margin-bottom: var(--spacing-md);
+    color: var(--secondary-dark);
+}
+
+.mining-info {
+    background-color: var(--light);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-xs) 0;
+}
+
+.transaction-form {
+    margin-top: var(--spacing-md);
+}
+
+/* Transaction History */
+.transaction-history {
+    background-color: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background-color: var(--light);
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.history-header h3 {
+    margin: 0;
+}
+
+.transactions-container {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.transactions-header {
+    display: flex;
+    padding: var(--spacing-sm);
+    font-weight: bold;
+    background-color: var(--light);
+    border-bottom: 1px solid var(--gray-light);
+    position: sticky;
+    top: 0;
+}
+
+.transaction-list {
+    padding: var(--spacing-sm);
+}
+
+.transaction-row {
+    display: flex;
+    padding: var(--spacing-sm);
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.transaction-row:last-child {
+    border-bottom: none;
+}
+
+.tx-type, .tx-amount, .tx-address, .tx-status, .tx-time {
+    padding: 0 var(--spacing-xs);
+}
+
+.tx-type {
+    width: 15%;
+}
+
+.tx-amount {
+    width: 15%;
+    text-align: right;
+}
+
+.tx-address {
+    width: 40%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tx-status {
+    width: 15%;
+    text-align: center;
+}
+
+.tx-time {
+    width: 15%;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Status indicators */
+.status-confirmed {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--success);
+    font-size: var(--font-small);
+}
+
+.status-pending {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background-color: rgba(255, 152, 0, 0.1);
+    color: var(--warning);
+    font-size: var(--font-small);
+}
+
+.refresh-icon {
+    display: inline-block;
+}

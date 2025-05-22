@@ -14,9 +14,9 @@ const { AuthManager } = require('./auth');
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({
-    origin: config.CORS_ORIGINS,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+  origin: '*', // In development; restrict this in production
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Initialize blockchain and related services

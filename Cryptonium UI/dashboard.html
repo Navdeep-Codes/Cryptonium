@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | CTNM Blockchain</title>
+    <link rel="icon" href="assets/images/favicon.ico">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="app-page">
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="brand">
+                <img src="assets/images/logo.png" alt="Cryptonium Logo" class="nav-logo">
+                <span class="brand-name">CTNM</span>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item active"><a href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item"><a href="wallet.html">Wallet</a></li>
+                <li class="nav-item"><a href="explorer.html">Explorer</a></li>
+            </ul>
+            <div class="user-menu">
+                <span id="user-address" class="user-address">Wallet: loading...</span>
+                <div class="dropdown">
+                    <button class="user-dropdown" id="user-dropdown">
+                        <span id="username">User</span>
+                        <span class="arrow-down"></span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#" id="logout-btn">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <h1 class="page-title">Dashboard</h1>
+
+        <div class="dashboard-grid">
+            <!-- Wallet Summary Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2>Your CTNM Balance</h2>
+                </div>
+                <div class="card-body">
+                    <div class="balance-display">
+                        <span id="user-balance" class="balance-amount">0</span>
+                        <span class="balance-currency">CTNM</span>
+                    </div>
+                    <div class="balance-actions">
+                        <a href="wallet.html" class="btn btn-secondary">View Wallet</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mining Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2>Mining</h2>
+                </div>
+                <div class="card-body">
+                    <p>Mine a new block to earn CTNM rewards and process pending transactions.</p>
+                    <button id="mine-btn" class="btn btn-primary">
+                        <span class="btn-icon">⛏️</span> Mine Block
+                    </button>
+                    <div id="mining-status" class="mining-status"></div>
+                </div>
+            </div>
+
+            <!-- Quick Transfer Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2>Quick Transfer</h2>
+                </div>
+                <div class="card-body">
+                    <form id="quick-transfer-form">
+                        <div class="form-group">
+                            <label for="recipient-address">Recipient Address</label>
+                            <input type="text" id="recipient-address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transfer-amount">Amount (CTNM)</label>
+                            <input type="number" id="transfer-amount" min="0.00001" step="0.00001" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send CTNM</button>
+                        <div id="transfer-message" class="message"></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Blockchain Status Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2>Blockchain Status</h2>
+                </div>
+                <div class="card-body">
+                    <div id="blockchain-info" class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Chain Length</span>
+                            <span id="chain-length" class="stat-value">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Difficulty</span>
+                            <span id="difficulty" class="stat-value">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Mining Reward</span>
+                            <span id="mining-reward" class="stat-value">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Pending Txs</span>
+                            <span id="pending-txs" class="stat-value">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Consensus</span>
+                            <span id="consensus-type" class="stat-value">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Chain Valid</span>
+                            <span id="chain-valid" class="stat-value">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions Card -->
+            <div class="dashboard-card wide">
+                <div class="card-header">
+                    <h2>Recent Transactions</h2>
+                </div>
+                <div class="card-body">
+                    <div id="recent-transactions" class="transactions-list">
+                        <div class="loading">Loading transactions...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Cryptonium Blockchain. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/blockchain.js"></script>
+    <script src="assets/js/wallet.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

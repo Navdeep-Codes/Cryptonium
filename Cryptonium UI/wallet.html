@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet | CTNM Blockchain</title>
+    <link rel="icon" href="assets/images/favicon.ico">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="app-page">
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="brand">
+                <img src="assets/images/logo.png" alt="Cryptonium Logo" class="nav-logo">
+                <span class="brand-name">CTNM</span>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item active"><a href="wallet.html">Wallet</a></li>
+                <li class="nav-item"><a href="explorer.html">Explorer</a></li>
+            </ul>
+            <div class="user-menu">
+                <span id="user-address" class="user-address">Wallet: loading...</span>
+                <div class="dropdown">
+                    <button class="user-dropdown" id="user-dropdown">
+                        <span id="username">User</span>
+                        <span class="arrow-down"></span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#" id="logout-btn">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <h1 class="page-title">Wallet</h1>
+
+        <div class="wallet-container">
+            <div class="wallet-card">
+                <div class="wallet-header">
+                    <div class="wallet-title">
+                        <h2>CTNM Wallet</h2>
+                        <button id="refresh-wallet" class="btn btn-icon" title="Refresh Wallet">
+                            <span class="icon refresh-icon">↻</span>
+                        </button>
+                    </div>
+                    <div class="wallet-balance">
+                        <span id="balance-amount" class="balance-value">0</span>
+                        <span class="balance-currency">CTNM</span>
+                    </div>
+                </div>
+                <div class="wallet-body">
+                    <div class="wallet-info">
+                        <div class="info-group">
+                            <span class="info-label">Your Address</span>
+                            <div class="address-container">
+                                <code id="wallet-address" class="wallet-address">Loading...</code>
+                                <button id="copy-address" class="btn btn-icon" title="Copy Address">
+                                    <span class="icon copy-icon">📋</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Username</span>
+                            <span id="wallet-username" class="info-value">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wallet-actions">
+                <div class="action-card">
+                    <h3>Send CTNM</h3>
+                    <form id="send-form" class="transaction-form">
+                        <div class="form-group">
+                            <label for="send-to-address">Recipient Address</label>
+                            <input type="text" id="send-to-address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="send-amount">Amount (CTNM)</label>
+                            <input type="number" id="send-amount" min="0.00001" step="0.00001" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Transaction</button>
+                        <div id="send-message" class="message"></div>
+                    </form>
+                </div>
+
+                <div class="action-card">
+                    <h3>Mining</h3>
+                    <p>Mine a new block to earn CTNM rewards.</p>
+                    <div class="mining-info">
+                        <div class="info-row">
+                            <span class="info-label">Current Reward</span>
+                            <span id="current-reward" class="info-value">50 CTNM</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Difficulty</span>
+                            <span id="mining-difficulty" class="info-value">4</span>
+                        </div>
+                    </div>
+                    <button id="wallet-mine-btn" class="btn btn-primary">
+                        <span class="btn-icon">⛏️</span> Mine Block
+                    </button>
+                    <div id="wallet-mining-status" class="mining-status"></div>
+                </div>
+            </div>
+
+            <div class="transaction-history">
+                <div class="history-header">
+                    <h3>Transaction History</h3>
+                    <button id="refresh-history" class="btn btn-icon" title="Refresh History">
+                        <span class="icon refresh-icon">↻</span>
+                    </button>
+                </div>
+                <div id="transactions-container" class="transactions-container">
+                    <div class="transactions-header">
+                        <div class="tx-type">Type</div>
+                        <div class="tx-amount">Amount</div>
+                        <div class="tx-address">Address</div>
+                        <div class="tx-status">Status</div>
+                        <div class="tx-time">Time</div>
+                    </div>
+                    <div id="transaction-list" class="transaction-list">
+                        <div class="loading">Loading transaction history...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Cryptonium Blockchain. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/blockchain.js"></script>
+    <script src="assets/js/wallet.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

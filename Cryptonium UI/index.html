@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTNM Blockchain | Cryptonium</title>
+    <link rel="icon" href="assets/images/favicon.ico">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="landing-page">
+    <div class="landing-container">
+        <header class="landing-header">
+            <img src="assets/images/logo.png" alt="Cryptonium Logo" class="logo">
+            <h1>CRYPTONIUM</h1>
+            <p class="tagline">The Next Generation Blockchain Platform</p>
+        </header>
+
+        <div class="cta-container">
+            <div class="auth-box">
+                <div class="tabs">
+                    <div class="tab active" data-tab="login">Login</div>
+                    <div class="tab" data-tab="register">Register</div>
+                </div>
+
+                <div class="tab-content visible" id="login-content">
+                    <form id="login-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="login-username">Username</label>
+                            <input type="text" id="login-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <div id="login-message" class="message"></div>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="register-content">
+                    <form id="register-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="register-username">Username</label>
+                            <input type="text" id="register-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password-confirm">Confirm Password</label>
+                            <input type="password" id="register-password-confirm" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        <div id="register-message" class="message"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="blockchain-status">
+            <h2>Blockchain Status</h2>
+            <div id="blockchain-info" class="stats-container">
+                <div class="stat-box">
+                    <span class="stat-label">Chain Length</span>
+                    <span id="chain-length" class="stat-value">-</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Difficulty</span>
+                    <span id="difficulty" class="stat-value">-</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Mining Reward</span>
+                    <span id="mining-reward" class="stat-value">-</span>
+                    <span class="currency">CTNM</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Pending Txs</span>
+                    <span id="pending-txs" class="stat-value">-</span>
+                </div>
+            </div>
+        </div>
+
+        <footer class="landing-footer">
+            <p>&copy; 2025 Cryptonium Blockchain. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">GitHub</a>
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">Discord</a>
+            </div>
+        </footer>
+    </div>
+    <script src="assets/js/init.js"></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/blockchain.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script>
+        // Initialize the landing page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up tab switching
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    // Hide all tab content
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('visible'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    // Show corresponding tab content
+                    document.getElementById(`${tab.dataset.tab}-content`).classList.add('visible');
+                });
+            });
+
+            // Initialize auth forms
+            initAuthForms();
+            
+            // Load blockchain info
+            blockchain.getInfo()
+                .then(info => {
+                    document.getElementById('chain-length').textContent = info.chainLength;
+                    document.getElementById('difficulty').textContent = info.difficulty;
+                    document.getElementById('mining-reward').textContent = info.miningReward;
+                    document.getElementById('pending-txs').textContent = info.pendingTransactions;
+                })
+                .catch(err => {
+                    console.error('Failed to load blockchain info:', err);
+                    showError('Failed to connect to blockchain network');
+                });
+                
+            // Check if user is already logged in
+            if (auth.isLoggedIn()) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

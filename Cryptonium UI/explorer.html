@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Explorer | CTNM Blockchain</title>
+    <link rel="icon" href="assets/images/favicon.ico">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="app-page">
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="brand">
+                <img src="assets/images/logo.png" alt="Cryptonium Logo" class="nav-logo">
+                <span class="brand-name">CTNM</span>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item"><a href="wallet.html">Wallet</a></li>
+                <li class="nav-item active"><a href="explorer.html">Explorer</a></li>
+            </ul>
+            <div class="user-menu">
+                <span id="user-address" class="user-address">Wallet: loading...</span>
+                <div class="dropdown">
+                    <button class="user-dropdown" id="user-dropdown">
+                        <span id="username">User</span>
+                        <span class="arrow-down"></span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#" id="logout-btn">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <h1 class="page-title">Block Explorer</h1>
+
+        <div class="explorer-controls">
+            <div class="search-container">
+                <form id="search-form">
+                    <div class="search-input-group">
+                        <select id="search-type">
+                            <option value="block">Block</option>
+                            <option value="transaction">Transaction</option>
+                            <option value="address">Address</option>
+                        </select>
+                        <input type="text" id="search-query" placeholder="Search by block index, hash, or address...">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div class="refresh-container">
+                <button id="refresh-explorer" class="btn btn-secondary">
+                    <span class="icon refresh-icon">↻</span> Refresh
+                </button>
+            </div>
+        </div>
+
+        <div class="explorer-container">
+            <div class="explorer-stats">
+                <div class="stat-box">
+                    <span class="stat-label">Blocks</span>
+                    <span id="explorer-blocks" class="stat-value">-</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Difficulty</span>
+                    <span id="explorer-difficulty" class="stat-value">-</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Chain Status</span>
+                    <span id="explorer-validity" class="stat-value">-</span>
+                </div>
+            </div>
+
+            <!-- Block List -->
+            <div class="blocks-container">
+                <h2>Latest Blocks</h2>
+                <div class="blocks-table-container">
+                    <table class="blocks-table">
+                        <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>Hash</th>
+                                <th>Time</th>
+                                <th>Transactions</th>
+                                <th>Mined By</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blocks-table-body">
+                            <tr>
+                                <td colspan="5" class="loading-row">Loading blocks...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <button id="prev-page" class="btn btn-pagination" disabled>Previous</button>
+                    <span id="page-indicator">Page 1</span>
+                    <button id="next-page" class="btn btn-pagination">Next</button>
+                </div>
+            </div>
+
+            <!-- Block Detail View (hidden by default) -->
+            <div id="block-detail" class="detail-view" style="display: none;">
+                <div class="detail-header">
+                    <h2>Block Details</h2>
+                    <button id="close-detail" class="btn btn-icon">×</button>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-section">
+                        <h3>Block Information</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Index</span>
+                                <span id="detail-index" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Hash</span>
+                                <span id="detail-hash" class="detail-value code-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Previous Hash</span>
+                                <span id="detail-prev-hash" class="detail-value code-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Time</span>
+                                <span id="detail-timestamp" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Nonce</span>
+                                <span id="detail-nonce" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Transactions</span>
+                                <span id="detail-tx-count" class="detail-value"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Block Transactions</h3>
+                        <div id="detail-transactions" class="transactions-container">
+                            <div class="transactions-header">
+                                <div class="tx-from">From</div>
+                                <div class="tx-to">To</div>
+                                <div class="tx-amount">Amount</div>
+                                <div class="tx-time">Time</div>
+                            </div>
+                            <div id="detail-tx-list" class="transaction-list">
+                                <div class="loading">Loading transactions...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Cryptonium Blockchain. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/blockchain.js"></script>
+    <script src="assets/js/wallet.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

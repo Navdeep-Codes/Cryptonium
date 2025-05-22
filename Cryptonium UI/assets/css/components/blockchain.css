@@ -1,0 +1,219 @@
+/* Blockchain Component Styles */
+
+/* Blockchain info/status */
+.blockchain-status {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background-color: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.blockchain-status h2 {
+    margin-bottom: var(--spacing-md);
+    color: var(--secondary-dark);
+}
+
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.stat-box {
+    flex: 1;
+    min-width: 150px;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-sm);
+    background-color: var(--light);
+    border: 1px solid var(--gray-light);
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: var(--font-small);
+    color: var(--secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-value {
+    font-size: var(--font-large);
+    font-weight: bold;
+    color: var(--dark);
+}
+
+.currency {
+    font-size: var(--font-small);
+    color: var(--secondary);
+    margin-left: 4px;
+}
+
+/* Explorer styles */
+.explorer-container {
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+}
+
+.explorer-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.search-container {
+    flex-grow: 1;
+    margin-right: var(--spacing-md);
+}
+
+.search-input-group {
+    display: flex;
+}
+
+.search-input-group select {
+    width: 120px;
+    padding: 10px;
+    border: 1px solid var(--gray-light);
+    border-top-left-radius: var(--radius-sm);
+    border-bottom-left-radius: var(--radius-sm);
+    border-right: none;
+    font-size: var(--font-normal);
+}
+
+.search-input-group input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--gray-light);
+    font-size: var(--font-normal);
+}
+
+.search-input-group button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.explorer-stats {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Block tables */
+.blocks-table-container {
+    overflow-x: auto;
+}
+
+.blocks-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.blocks-table th,
+.blocks-table td {
+    padding: var(--spacing-sm);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.blocks-table th {
+    background-color: var(--light);
+    font-weight: bold;
+    color: var(--secondary-dark);
+}
+
+.blocks-table tr:hover td {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.loading-row {
+    text-align: center;
+    padding: var(--spacing-lg) !important;
+    color: var(--gray);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+    gap: var(--spacing-md);
+}
+
+.btn-pagination {
+    background-color: var(--light);
+    border: 1px solid var(--gray-light);
+    color: var(--secondary-dark);
+}
+
+.btn-pagination:disabled {
+    background-color: var(--gray-light);
+    color: var(--gray);
+    cursor: not-allowed;
+}
+
+/* Block detail view */
+.detail-view {
+    margin-top: var(--spacing-lg);
+    background-color: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background-color: var(--light);
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.detail-content {
+    padding: var(--spacing-lg);
+}
+
+.detail-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.detail-section h3 {
+    margin-bottom: var(--spacing-md);
+    color: var(--secondary-dark);
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.detail-item {
+    padding: var(--spacing-sm);
+    background-color: var(--light);
+    border-radius: var(--radius-sm);
+}
+
+.detail-label {
+    display: block;
+    font-size: var(--font-small);
+    color: var(--secondary);
+    margin-bottom: 4px;
+}
+
+.detail-value {
+    font-weight: 500;
+    word-break: break-all;
+}
+
+.code-value {
+    font-family: 'Courier New', monospace;
+    background-color: #f8f9fa;
+    padding: 2px 4px;
+    font-size: 0.9em;
+    border-radius: 2px;
+}
