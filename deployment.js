@@ -1,4 +1,3 @@
-// Example of implementing a persistence layer for your blockchain
 const fs = require('fs');
 const path = require('path');
 
@@ -9,7 +8,6 @@ class BlockchainPersistence {
 
     saveChain(blockchain) {
         try {
-            // Serialize and save blockchain to file
             fs.writeFileSync(this.filePath, JSON.stringify(blockchain, null, 2));
             return true;
         } catch (error) {

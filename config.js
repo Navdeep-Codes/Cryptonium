@@ -1,6 +1,6 @@
 module.exports = {
     // Blockchain configuration
-    DIFFICULTY: 4,  // Adjust this to control mining difficulty
+    DIFFICULTY: 4,  
     MINING_REWARD: 50,
     
     // API configuration

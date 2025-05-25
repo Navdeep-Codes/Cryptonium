@@ -13,7 +13,6 @@ class ConsensusEngine {
             hash = SHA256(block.index + block.timestamp + JSON.stringify(block.data) + 
                   block.previousHash + nonce).toString();
             
-            // Log progress periodically
             if (nonce % 10000 === 0) {
                 process.stdout.write('.');
             }
@@ -23,15 +22,13 @@ class ConsensusEngine {
         return { nonce, hash };
     }
     
-    // Add this function - it was missing
     static calculateBlockHash(block) {
         return SHA256(block.index + block.timestamp + JSON.stringify(block.data) + 
                 block.previousHash + block.nonce).toString();
     }
     
     static proofOfStake(validators, currentValidator) {
-        // Simple PoS implementation based on stake
-        // In a real implementation, this would consider stake amount, coin age, etc.
+        
         const totalStake = validators.reduce((sum, v) => sum + v.stake, 0);
         const threshold = Math.random() * totalStake;
         

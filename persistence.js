@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 
-// MongoDB Schema definitions
 const blockSchema = new mongoose.Schema({
     index: { type: Number, required: true, unique: true },
     timestamp: { type: Number, required: true },
@@ -17,7 +16,7 @@ const transactionSchema = new mongoose.Schema({
     to: { type: String, required: true },
     amount: { type: Number, required: true },
     timestamp: { type: Number, required: true },
-    blockIndex: { type: Number, default: null }, // null if not yet mined
+    blockIndex: { type: Number, default: null }, 
     signature: { type: String, default: null }
 });
 
@@ -54,7 +53,6 @@ class BlockchainPersistence {
         }
         
         try {
-            // Clear previous data (in a production environment, you'd want more careful migration)
             await BlockModel.deleteMany({});
             
             // Save each block to the database
@@ -80,7 +78,7 @@ class BlockchainPersistence {
             return true;
         } catch (error) {
             console.error('Failed to save blockchain to database:', error);
-            return this.saveToFile(blockchain); // Fallback to file storage
+            return this.saveToFile(blockchain); 
         }
     }
     
@@ -193,4 +191,4 @@ class BlockchainPersistence {
     }
 }
 
-module.exports = { BlockchainPersistence, BlockModel, TransactionModel };
+module.exports = { BlockchainPersistence, BlockModel, TransactionModel };;

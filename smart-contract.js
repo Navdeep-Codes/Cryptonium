@@ -44,7 +44,7 @@ class SmartContract {
 
 class TokenContract extends SmartContract {
   constructor(owner, name, symbol, decimals, initialSupply, maxSupply) {
-    // Define token contract code with standard methods
+    
     const tokenCode = {
       // Transfer tokens from sender to recipient
       transfer: (state, { to, amount }, { sender }) => {

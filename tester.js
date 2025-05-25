@@ -133,7 +133,7 @@ async function runTests() {
     // Create transaction (to self for testing)
     console.log('\n5. Creating a transaction...');
     response = await request('POST', '/transaction', {
-      to: userAddress, // Send to self for testing
+      to: userAddress, 
       amount: 1
     }, token);
     
@@ -188,7 +188,6 @@ async function runTests() {
       console.log('✗ Could not get blocks (status:', response.status, ')');
     }
     
-    // Test P2P feature indirectly by checking updated info
     console.log('\n9. Checking if blockchain info was updated...');
     response = await request('GET', '/blockchain/info');
     

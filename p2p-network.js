@@ -62,7 +62,6 @@ class P2PNetwork {
     
     connectToPeers(newPeers) {
         newPeers.forEach((peer) => {
-            // Prevent connecting to self or existing connections
             if (peer !== `ws://localhost:${this.port}` && !this.knownPeers.has(peer)) {
                 try {
                     const socket = new WebSocket(peer);
@@ -153,17 +152,14 @@ class P2PNetwork {
     }
     
     validateReceivedChain(chain) {
-        // Simple validation - in a real implementation, you'd do more extensive validation
         if (!Array.isArray(chain) || chain.length === 0) {
             return false;
         }
         
-        // Check if the genesis block matches
         if (JSON.stringify(chain[0]) !== JSON.stringify(this.blockchain.chain[0])) {
             return false;
         }
         
-        // Additional validation would go here
         
         return true;
     }
@@ -187,7 +183,6 @@ class P2PNetwork {
                 )
             );
         } else {
-            // Request the full blockchain as our chain might be outdated
             this.broadcast({
                 type: 'BLOCKCHAIN_QUERY'
             });
@@ -195,7 +190,6 @@ class P2PNetwork {
     }
     
     handleNewTransaction(transaction) {
-        // Check if transaction already in pending transactions
         const txExists = this.blockchain.pendingTransactions.some(tx => 
             tx.from === transaction.from && 
             tx.to === transaction.to && 

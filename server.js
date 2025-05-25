@@ -4,17 +4,15 @@ const cors = require('cors');
 const crypto = require('crypto');
 const config = require('./config');
 
-// Import all the enhanced components
 const { Block, Blockchain } = require('./blockchain');
 const P2PNetwork = require('./p2p-network');
 const { BlockchainPersistence } = require('./persistence');
 const { AuthManager } = require('./auth');
 
-// Initialize Express app
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({
-  origin: '*', // In development; restrict this in production
+  origin: '*', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -52,8 +50,7 @@ persistence.connect().then(async connected => {
 setInterval(() => {
     persistence.saveChain(blockchain);
     persistence.savePendingTransactions(blockchain.pendingTransactions);
-}, 60000); // Save every minute
-
+}, 60000); 
 // Initialize authentication manager
 const authManager = new AuthManager(config);
 
@@ -68,17 +65,12 @@ const adminMiddleware = (req, res, next) => {
 
 // Generate a blockchain wallet (address and private key)
 function generateWallet() {
-    // In a real implementation, use elliptic curve cryptography
-    // This is a simplified version for demonstration
     const privateKey = crypto.randomBytes(32).toString('hex');
     const address = 'wallet_' + crypto.createHash('sha256').update(privateKey).digest('hex').substring(0, 40);
     
     return { address, privateKey };
 }
 
-// ===== API ROUTES =====
-
-// Public routes
 
 // Get blockchain info (no authentication required)
 app.get('/blockchain/info', (req, res) => {
@@ -170,7 +162,6 @@ app.post('/auth/login', async (req, res) => {
     });
 });
 
-// Protected routes (require authentication)
 
 // Get user profile and balance
 app.get('/user/profile', authMiddleware, (req, res) => {
@@ -226,7 +217,6 @@ app.post('/transaction', authMiddleware, (req, res) => {
             timestamp: Date.now()
         };
         
-        // In a real implementation, we would sign the transaction with the user's private key
         
         const result = blockchain.createTransaction(transaction);
         
@@ -246,7 +236,6 @@ app.post('/transaction', authMiddleware, (req, res) => {
 
 // Mine transactions
 app.post('/mine', authMiddleware, (req, res) => {
-    // Use the authenticated user's address for mining reward
     const result = blockchain.minePendingTransactions(req.user.address);
     
     if (!result.success) {
@@ -262,12 +251,10 @@ app.post('/mine', authMiddleware, (req, res) => {
     });
 });
 
-// Get transaction history for current user
 app.get('/transactions/history', authMiddleware, (req, res) => {
     const address = req.user.address;
     const transactions = [];
     
-    // Collect all transactions involving this address
     blockchain.chain.forEach(block => {
         if (Array.isArray(block.data)) {
             block.data.forEach(tx => {
@@ -299,13 +286,11 @@ app.get('/transactions/history', authMiddleware, (req, res) => {
     res.json(transactions);
 });
 
-// P2P network status (admin only)
 app.get('/network/status', authMiddleware, adminMiddleware, (req, res) => {
     const stats = p2pNetwork.getNetworkStats();
     res.json(stats);
 });
 
-// Connect to a new peer (admin only)
 app.post('/network/peers', authMiddleware, adminMiddleware, (req, res) => {
     const { peer } = req.body;
     
@@ -350,7 +335,6 @@ app.listen(PORT, () => {
     console.log(`Blockchain API server running on port ${PORT}`);
 });
 
-// Handle shutdown gracefully
 process.on('SIGINT', async () => {
     console.log('Shutting down...');
     await persistence.saveChain(blockchain);
