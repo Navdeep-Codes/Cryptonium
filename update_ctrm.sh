@@ -10,3 +10,4 @@ cd ~
 # Restart and check the cryptonium.service
 systemctl --user stop cryptonium.service
 systemctl --user start cryptonium.service
+systemctl --user status cryptonium.service
