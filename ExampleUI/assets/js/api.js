@@ -15,7 +15,6 @@ const api = {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // Important: include these for CORS
             mode: 'cors',
             credentials: 'same-origin'
         };

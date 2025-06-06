@@ -3,7 +3,7 @@ module.exports = {
     DIFFICULTY: 4,  
     MINING_REWARD: 50,
     
-    API_PORT: process.env.API_PORT || 3000,
+    API_PORT: process.env.API_PORT || 1586,
     CORS_ORIGINS: process.env.CORS_ORIGINS ? 
         process.env.CORS_ORIGINS.split(',') : 
         ['http://localhost:8080', 'http://localhost:3001'],
