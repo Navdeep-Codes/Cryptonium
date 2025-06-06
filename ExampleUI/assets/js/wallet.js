@@ -1,9 +1,6 @@
-/**
- * Wallet service for managing user wallet functionality
- */
+
 const wallet = {
     /**
-     * Get user wallet profile and balance
      * @returns {Promise} User wallet data
      */
     async getProfile() {
@@ -17,7 +14,6 @@ const wallet = {
     },
 
     /**
-     * Get transaction history
      * @returns {Promise} Transaction history
      */
     async getTransactionHistory() {
@@ -31,19 +27,16 @@ const wallet = {
     },
 
     /**
-     * Send a new transaction
      * @param {string} to - Recipient address
      * @param {number} amount - Amount to send
      * @returns {Promise} Transaction result
      */
     async sendTransaction(to, amount) {
         try {
-            // Validate inputs
             if (!to || !amount) {
                 throw new Error('Recipient address and amount are required');
             }
 
-            // Convert amount to number
             const numAmount = parseFloat(amount);
             if (isNaN(numAmount) || numAmount <= 0) {
                 throw new Error('Amount must be a positive number');
@@ -57,7 +50,6 @@ const wallet = {
     },
 
     /**
-     * Mine a new block
      * @returns {Promise} Mining result
      */
     async mineBlock() {
@@ -70,7 +62,6 @@ const wallet = {
     },
     
     /**
-     * Format wallet address for display (abbreviated)
      * @param {string} address - Full wallet address
      * @returns {string} Abbreviated address
      */

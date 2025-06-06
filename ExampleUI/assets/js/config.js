@@ -1,23 +1,16 @@
-/**
- * Configuration file for the CTNM blockchain frontend
- */
+
 const config = {
-    // API configuration
-    apiUrl: 'http://localhost:3000', // Change this to match your API URL
+    apiUrl: 'http://cryptonium.api.navdeepsingh.tech',
     
-    // Authentication
     tokenStorageKey: 'ctnm_auth_token',
     userStorageKey: 'ctnm_user_data',
     
-    // Blockchain display
     maxRecentTransactions: 10,
     maxBlocksPerPage: 10,
-    refreshInterval: 30000, // Auto refresh data every 30 seconds
+    refreshInterval: 30000, 
+
+    addressDisplayLength: 10, 
     
-    // Wallet configuration
-    addressDisplayLength: 10, // Number of characters to display for shortened addresses
-    
-    // General
     dateFormat: {
         year: 'numeric',
         month: 'short',

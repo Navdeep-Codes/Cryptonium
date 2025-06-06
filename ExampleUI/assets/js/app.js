@@ -1,19 +1,13 @@
-/**
- * Main application script that initializes the app
- */
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Check authentication
     if (!auth.isLoggedIn() && !window.location.pathname.includes('index.html')) {
-        // Redirect to login page if not authenticated
         window.location.href = 'index.html';
         return;
     }
     
-    // Set up user menu and logout functionality
     ui.updateUserMenu();
     setupLogoutButton();
     
-    // Initialize page-specific functionality
     const pagePath = window.location.pathname;
     
     if (pagePath.includes('dashboard.html')) {
@@ -25,9 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/**
- * Set up logout button functionality
- */
 function setupLogoutButton() {
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
@@ -38,9 +29,7 @@ function setupLogoutButton() {
     }
 }
 
-/**
- * Initialize authentication forms on the landing page
- */
+
 function initAuthForms() {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
@@ -71,12 +60,10 @@ function initAuthForms() {
                 await auth.register(username, password, confirmPassword);
                 ui.showMessage('register-message', 'Registration successful! You can now log in.', 'success');
                 
-                // Auto-fill login form
                 if (document.getElementById('login-username')) {
                     document.getElementById('login-username').value = username;
                 }
                 
-                // Switch to login tab
                 const loginTab = document.querySelector('.tab[data-tab="login"]');
                 if (loginTab) {
                     loginTab.click();
@@ -88,12 +75,9 @@ function initAuthForms() {
     }
 }
 
-/**
- * Initialize dashboard page
- */
+
 async function initDashboard() {
     try {
-        // Load blockchain info
         const blockchainInfo = await blockchain.getInfo();
         document.getElementById('chain-length').textContent = blockchainInfo.chainLength;
         document.getElementById('difficulty').textContent = blockchainInfo.difficulty;
@@ -102,11 +86,9 @@ async function initDashboard() {
         document.getElementById('consensus-type').textContent = blockchainInfo.consensus;
         document.getElementById('chain-valid').textContent = blockchainInfo.isValid ? 'Yes' : 'No';
         
-        // Load user wallet info
         const profile = await wallet.getProfile();
         document.getElementById('user-balance').textContent = ui.formatAmount(profile.balance);
         
-        // Set up mining button
         const mineBtn = document.getElementById('mine-btn');
         const miningStatus = document.getElementById('mining-status');
         
@@ -121,7 +103,6 @@ async function initDashboard() {
                 miningStatus.textContent = `Block #${result.block.index} mined successfully!`;
                 miningStatus.className = 'mining-status success';
                 
-                // Refresh data
                 await refreshDashboard();
             } catch (error) {
                 miningStatus.textContent = `Mining failed: ${error.message}`;
@@ -131,7 +112,6 @@ async function initDashboard() {
             }
         });
         
-        // Set up quick transfer form
         const transferForm = document.getElementById('quick-transfer-form');
         transferForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -149,11 +129,9 @@ async function initDashboard() {
                 messageElement.textContent = 'Transaction sent successfully!';
                 messageElement.className = 'message success';
                 
-                // Clear form
                 document.getElementById('recipient-address').value = '';
                 document.getElementById('transfer-amount').value = '';
                 
-                // Load transaction history
                 await loadRecentTransactions();
             } catch (error) {
                 messageElement.textContent = `Transaction failed: ${error.message}`;
@@ -161,10 +139,8 @@ async function initDashboard() {
             }
         });
         
-        // Load recent transactions
         await loadRecentTransactions();
         
-        // Set up auto-refresh
         setInterval(refreshDashboard, config.refreshInterval);
         
     } catch (error) {
@@ -172,12 +148,9 @@ async function initDashboard() {
     }
 }
 
-/**
- * Refresh dashboard data
- */
+
 async function refreshDashboard() {
     try {
-        // Refresh blockchain info
         const blockchainInfo = await blockchain.getInfo();
         document.getElementById('chain-length').textContent = blockchainInfo.chainLength;
         document.getElementById('difficulty').textContent = blockchainInfo.difficulty;
@@ -185,20 +158,15 @@ async function refreshDashboard() {
         document.getElementById('pending-txs').textContent = blockchainInfo.pendingTransactions;
         document.getElementById('chain-valid').textContent = blockchainInfo.isValid ? 'Yes' : 'No';
         
-        // Refresh user balance
         const profile = await wallet.getProfile();
         document.getElementById('user-balance').textContent = ui.formatAmount(profile.balance);
         
-        // Refresh transactions
         await loadRecentTransactions();
     } catch (error) {
         console.error('Dashboard refresh error:', error);
     }
 }
 
-/**
- * Load and display recent transactions
- */
 async function loadRecentTransactions() {
     try {
         const transactionsContainer = document.getElementById('recent-transactions');
@@ -251,18 +219,12 @@ async function loadRecentTransactions() {
     }
 }
 
-/**
- * Initialize wallet page
- */
 async function initWallet() {
     try {
-        // Load wallet info
         await refreshWalletInfo();
         
-        // Set up refresh button
         document.getElementById('refresh-wallet').addEventListener('click', refreshWalletInfo);
         
-        // Set up copy address button
         document.getElementById('copy-address').addEventListener('click', async () => {
             const address = document.getElementById('wallet-address').textContent;
             const success = await ui.copyToClipboard(address);
@@ -274,7 +236,6 @@ async function initWallet() {
             }
         });
         
-        // Set up send form
         const sendForm = document.getElementById('send-form');
         sendForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -292,11 +253,9 @@ async function initWallet() {
                 messageElement.textContent = 'Transaction sent successfully!';
                 messageElement.className = 'message success';
                 
-                // Clear form
                 document.getElementById('send-to-address').value = '';
                 document.getElementById('send-amount').value = '';
                 
-                // Refresh wallet data
                 await refreshWalletInfo();
             } catch (error) {
                 messageElement.textContent = `Transaction failed: ${error.message}`;
@@ -304,7 +263,6 @@ async function initWallet() {
             }
         });
         
-        // Set up mining button
         const mineBtn = document.getElementById('wallet-mine-btn');
         const miningStatus = document.getElementById('wallet-mining-status');
         
@@ -319,7 +277,6 @@ async function initWallet() {
                 miningStatus.textContent = `Block #${result.block.index} mined successfully!`;
                 miningStatus.className = 'mining-status success';
                 
-                // Refresh wallet data
                 await refreshWalletInfo();
             } catch (error) {
                 miningStatus.textContent = `Mining failed: ${error.message}`;
@@ -329,10 +286,8 @@ async function initWallet() {
             }
         });
         
-        // Set up refresh history button
         document.getElementById('refresh-history').addEventListener('click', loadTransactionHistory);
         
-        // Set up auto-refresh
         setInterval(refreshWalletInfo, config.refreshInterval);
         
     } catch (error) {
@@ -340,32 +295,23 @@ async function initWallet() {
     }
 }
 
-/**
- * Refresh wallet information
- */
 async function refreshWalletInfo() {
     try {
-        // Load blockchain info for mining stats
         const blockchainInfo = await blockchain.getInfo();
         document.getElementById('current-reward').textContent = `${blockchainInfo.miningReward} CTNM`;
         document.getElementById('mining-difficulty').textContent = blockchainInfo.difficulty;
         
-        // Load user profile
         const profile = await wallet.getProfile();
         document.getElementById('balance-amount').textContent = ui.formatAmount(profile.balance);
         document.getElementById('wallet-address').textContent = profile.address;
         document.getElementById('wallet-username').textContent = profile.username;
         
-        // Load transaction history
         await loadTransactionHistory();
     } catch (error) {
         console.error('Failed to refresh wallet:', error);
     }
 }
 
-/**
- * Load and display transaction history
- */
 async function loadTransactionHistory() {
     try {
         const transactionList = document.getElementById('transaction-list');
@@ -408,23 +354,18 @@ async function loadTransactionHistory() {
     }
 }
 
-/**
- * Initialize explorer page
- */
+
 async function initExplorer() {
     let currentPage = 0;
     
     try {
-        // Load blockchain info
         const blockchainInfo = await blockchain.getInfo();
         document.getElementById('explorer-blocks').textContent = blockchainInfo.chainLength;
         document.getElementById('explorer-difficulty').textContent = blockchainInfo.difficulty;
         document.getElementById('explorer-validity').textContent = blockchainInfo.isValid ? 'Valid' : 'Invalid';
         
-        // Load blocks
         await loadBlocks(currentPage);
         
-        // Set up pagination
         document.getElementById('prev-page').addEventListener('click', async () => {
             if (currentPage > 0) {
                 currentPage--;
@@ -442,20 +383,17 @@ async function initExplorer() {
             updatePagination(currentPage);
         });
         
-        // Set up refresh button
         document.getElementById('refresh-explorer').addEventListener('click', async () => {
             currentPage = 0;
             await loadBlocks(currentPage);
             updatePagination(currentPage);
             
-            // Refresh blockchain info
             const info = await blockchain.getInfo();
             document.getElementById('explorer-blocks').textContent = info.chainLength;
             document.getElementById('explorer-difficulty').textContent = info.difficulty;
             document.getElementById('explorer-validity').textContent = info.isValid ? 'Valid' : 'Invalid';
         });
         
-        // Set up search form
         document.getElementById('search-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -481,7 +419,6 @@ async function initExplorer() {
             }
         });
         
-        // Set up block detail close button
         document.getElementById('close-detail').addEventListener('click', () => {
             document.getElementById('block-detail').style.display = 'none';
         });
@@ -492,7 +429,6 @@ async function initExplorer() {
 }
 
 /**
- * Load blocks for explorer
  * @param {number} page - Page number
  * @returns {Promise} - Blocks data
  */
@@ -525,7 +461,6 @@ async function loadBlocks(page) {
         
         blocksTableBody.innerHTML = blocksHtml;
         
-        // Add click event to rows
         document.querySelectorAll('#blocks-table-body tr').forEach(row => {
             row.addEventListener('click', () => {
                 const blockIndex = row.dataset.blockIndex;
@@ -545,7 +480,6 @@ async function loadBlocks(page) {
 }
 
 /**
- * Get miner address from block data
  * @param {Object} block - Block data
  * @returns {string} Miner address or 'Genesis'
  */
@@ -564,7 +498,6 @@ function getMinerAddress(block) {
 }
 
 /**
- * Show block details
  * @param {number} blockIndex - Block index
  */
 async function showBlockDetails(blockIndex) {
@@ -578,7 +511,6 @@ async function showBlockDetails(blockIndex) {
         const block = await blockchain.getBlock(blockIndex);
         const formattedBlock = blockchain.formatBlock(block);
         
-        // Update block details
         document.getElementById('detail-index').textContent = block.index;
         document.getElementById('detail-hash').textContent = block.hash;
         document.getElementById('detail-prev-hash').textContent = block.previousHash;
@@ -586,7 +518,6 @@ async function showBlockDetails(blockIndex) {
         document.getElementById('detail-nonce').textContent = block.nonce;
         document.getElementById('detail-tx-count').textContent = formattedBlock.transactionCount;
         
-        // Show transactions
         if (!Array.isArray(block.data) || block.data.length === 0) {
             txList.innerHTML = '<div class="no-data">No transactions in this block</div>';
             return;
@@ -613,7 +544,6 @@ async function showBlockDetails(blockIndex) {
 }
 
 /**
- * Update pagination controls
  * @param {number} currentPage - Current page
  */
 function updatePagination(currentPage) {

@@ -1,9 +1,6 @@
-/**
- * UI utilities for handling common UI tasks
- */
+
 const ui = {
     /**
-     * Show a message in a target element
      * @param {string} elementId - Target element ID
      * @param {string} message - Message text
      * @param {string} type - Message type (success, error, warning)
@@ -25,7 +22,6 @@ const ui = {
     },
     
     /**
-     * Clear a message from a target element
      * @param {string} elementId - Target element ID
      */
     clearMessage(elementId) {
@@ -37,7 +33,6 @@ const ui = {
     },
 
     /**
-     * Format date/time for display
      * @param {number|string|Date} timestamp - Timestamp to format
      * @returns {string} Formatted date/time string
      */
@@ -48,7 +43,6 @@ const ui = {
     },
     
     /**
-     * Format a blockchain amount for display
      * @param {number} amount - Amount to format
      * @returns {string} Formatted amount
      */
@@ -62,7 +56,6 @@ const ui = {
     },
     
     /**
-     * Copy text to clipboard
      * @param {string} text - Text to copy
      * @returns {Promise} Result of the copy operation
      */
@@ -76,9 +69,6 @@ const ui = {
         }
     },
     
-    /**
-     * Update the user menu with current user info
-     */
     updateUserMenu() {
         const user = auth.getCurrentUser();
         if (!user) return;

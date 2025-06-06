@@ -1,9 +1,6 @@
-/**
- * API service to interact with the blockchain API
- */
+
 const api = {
     /**
-     * Make an API call with proper authentication
      * @param {string} method - HTTP method (GET, POST, etc.)
      * @param {string} endpoint - API endpoint
      * @param {Object} data - Request body data
@@ -29,7 +26,6 @@ const api = {
         }
 
         try {
-            // Make sure endpoint starts with a slash
             if (!endpoint.startsWith('/')) {
                 endpoint = '/' + endpoint;
             }
@@ -37,7 +33,6 @@ const api = {
             console.log(`Calling API: ${config.apiUrl}${endpoint}`);
             const response = await fetch(`${config.apiUrl}${endpoint}`, options);
             
-            // Handle non-JSON responses
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
                 if (!response.ok) {
@@ -59,7 +54,6 @@ const api = {
         }
     },
 
-    // Authentication methods
     auth: {
         async register(username, password) {
             return api.call('POST', '/auth/register', { username, password });
@@ -70,7 +64,6 @@ const api = {
         }
     },
 
-    // Blockchain methods
     blockchain: {
         async getInfo() {
             return api.call('GET', '/blockchain/info');
@@ -85,7 +78,6 @@ const api = {
         }
     },
 
-    // User/wallet methods
     wallet: {
         async getProfile() {
             return api.call('GET', '/user/profile');

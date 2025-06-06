@@ -1,4 +1,3 @@
-// Auth form initialization
 function initAuthForms() {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
@@ -27,7 +26,6 @@ function initAuthForms() {
         const passwordInput = document.getElementById('register-password');
         const confirmPasswordInput = document.getElementById('register-password-confirm');
         
-        // Check if elements exist before accessing values
         if (!usernameInput || !passwordInput || !confirmPasswordInput) {
             document.getElementById('register-message').textContent = 'Form fields not found';
             document.getElementById('register-message').className = 'message error';
@@ -49,10 +47,8 @@ function initAuthForms() {
                 document.getElementById('register-message').textContent = 'Registration successful! You can now log in.';
                 document.getElementById('register-message').className = 'message success';
                 
-                // Auto-switch to login tab
                 document.querySelector('.tab[data-tab="login"]').click();
                 
-                // Pre-fill the login form
                 document.getElementById('login-username').value = username;
             } catch (error) {
                 console.error('Registration error:', error);
@@ -63,7 +59,6 @@ function initAuthForms() {
     }
 }
 
-// Error display function
 function showError(message) {
     const infoDiv = document.getElementById('blockchain-info');
     if (infoDiv) {

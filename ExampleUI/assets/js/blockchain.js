@@ -1,9 +1,6 @@
-/**
- * Blockchain service for interacting with blockchain data
- */
+
 const blockchain = {
     /**
-     * Get blockchain info
      * @returns {Promise} Blockchain information
      */
     async getInfo() {
@@ -16,7 +13,6 @@ const blockchain = {
     },
 
     /**
-     * Get blockchain blocks (paginated)
      * @param {number} page - Page number (0-based)
      * @param {number} limit - Number of blocks per page
      * @returns {Promise} Blocks data
@@ -31,7 +27,6 @@ const blockchain = {
     },
 
     /**
-     * Get a specific block by index
      * @param {number} index - Block index
      * @returns {Promise} Block data
      */
@@ -45,7 +40,6 @@ const blockchain = {
     },
     
     /**
-     * Format a block for display
      * @param {Object} block - Block data
      * @returns {Object} Formatted block data
      */
@@ -60,7 +54,6 @@ const blockchain = {
     },
     
     /**
-     * Format a transaction for display
      * @param {Object} tx - Transaction data
      * @param {string} currentUserAddress - Current user's address
      * @returns {Object} Formatted transaction data
