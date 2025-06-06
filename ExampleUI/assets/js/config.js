@@ -1,6 +1,6 @@
 
 const config = {
-    apiUrl: 'http://localhost:1586',
+    apiUrl: 'http://cryptonium.api.navdeepsingh.tech',
     
     tokenStorageKey: 'ctnm_auth_token',
     userStorageKey: 'ctnm_user_data',
