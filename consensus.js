@@ -40,28 +40,24 @@ class ConsensusEngine {
             }
         }
         
-        return validators[0].address; // Fallback
+        return validators[0].address; 
     }
 
     static validateBlock(block, previousBlock, difficulty) {
-        // Check index
         if (block.index !== previousBlock.index + 1) {
             return { valid: false, reason: 'Invalid block index' };
         }
         
-        // Check previous hash
         if (block.previousHash !== previousBlock.hash) {
             return { valid: false, reason: 'Invalid previous hash' };
         }
         
-        // Check block hash
         const hash = this.calculateBlockHash(block);
         
         if (hash !== block.hash) {
             return { valid: false, reason: 'Invalid hash' };
         }
         
-        // Check hash meets difficulty
         if (!block.hash.startsWith(Array(difficulty + 1).join('0'))) {
             return { valid: false, reason: 'Hash does not meet difficulty requirement' };
         }

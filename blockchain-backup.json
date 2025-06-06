@@ -2,99 +2,25 @@
   "chain": [
     {
       "index": 0,
-      "timestamp": 1747913323079,
-      "data": [],
-      "previousHash": "0",
-      "hash": "f57ff779f0b2374c84437fab074121f13c0ccdff99bd4f62a6071e724fe6ae7b",
-      "nonce": 0,
-      "difficulty": 4
-    },
-    {
-      "index": 1,
-      "timestamp": 1747915474895,
+      "timestamp": 1749192442442,
       "data": [
         {
-          "from": "BLOCKCHAIN_REWARD",
+          "from": "Founder Address",
           "to": "wallet_fd698b1042eb86e2b2857ad779835e63c1a4e5a5",
-          "amount": 50,
+          "amount": 1000000,
           "tokenType": "CTNM",
           "data": {
-            "type": "mining_reward"
+            "type": "allocation",
+            "purpose": "founder"
           },
-          "timestamp": 1747915474894,
+          "timestamp": 1749192442442,
           "signature": null,
-          "hash": "b27119764bab7ba8ef2945486126d466657dd3a84fb3e5c12ef5fadeb226be43"
+          "hash": "eb19a176122f231525f18a935c04c2cb9a865dd82bdfa1b29782527e62d7ad18"
         }
       ],
-      "previousHash": "f57ff779f0b2374c84437fab074121f13c0ccdff99bd4f62a6071e724fe6ae7b",
-      "hash": "0000142b4cbcc3c10edbbbea60f047207e4c8b636f61a503d1a19ed83e26838e",
-      "nonce": 52353,
-      "difficulty": 4
-    },
-    {
-      "index": 2,
-      "timestamp": 1747916022255,
-      "data": [
-        {
-          "from": "BLOCKCHAIN_REWARD",
-          "to": "wallet_1608a2ae591610b10d9bf3115cb54fae95e62f30",
-          "amount": 50,
-          "tokenType": "CTNM",
-          "data": {
-            "type": "mining_reward"
-          },
-          "timestamp": 1747916022255,
-          "signature": null,
-          "hash": "0995449d2ee609d9b9a69a5b797c80252d522cc70f18b294ffa925cf1b919fe6"
-        }
-      ],
-      "previousHash": "0000142b4cbcc3c10edbbbea60f047207e4c8b636f61a503d1a19ed83e26838e",
-      "hash": "000065c6ee80eef778f671207dc98be4db872fc2f4cea003f0dcd81f8d23b6c0",
-      "nonce": 51850,
-      "difficulty": 4
-    },
-    {
-      "index": 3,
-      "timestamp": 1747916048687,
-      "data": [
-        {
-          "from": "BLOCKCHAIN_REWARD",
-          "to": "wallet_1608a2ae591610b10d9bf3115cb54fae95e62f30",
-          "amount": 50,
-          "tokenType": "CTNM",
-          "data": {
-            "type": "mining_reward"
-          },
-          "timestamp": 1747916048687,
-          "signature": null,
-          "hash": "4740ee4d1880ffa13fc7ddfdfcadd572579b3d562b36a1f1fc7b6698f8bdae29"
-        }
-      ],
-      "previousHash": "000065c6ee80eef778f671207dc98be4db872fc2f4cea003f0dcd81f8d23b6c0",
-      "hash": "000024de7d3fa69e2c00b0d0496f3ad6584a5ab96d2d8bb31bfce3ef88ffcd2a",
-      "nonce": 119927,
-      "difficulty": 4
-    },
-    {
-      "index": 4,
-      "timestamp": 1747916064752,
-      "data": [
-        {
-          "from": "BLOCKCHAIN_REWARD",
-          "to": "wallet_1608a2ae591610b10d9bf3115cb54fae95e62f30",
-          "amount": 50,
-          "tokenType": "CTNM",
-          "data": {
-            "type": "mining_reward"
-          },
-          "timestamp": 1747916064752,
-          "signature": null,
-          "hash": "a1d9b3cf2f5649907ac147e9f8ac206594aa7268b5a8fbafcbbf2d8bdc078776"
-        }
-      ],
-      "previousHash": "000024de7d3fa69e2c00b0d0496f3ad6584a5ab96d2d8bb31bfce3ef88ffcd2a",
-      "hash": "0000f37970549a77cc2ab2224988420b27becfaa2e954698cdb42e75e115cc3c",
-      "nonce": 88270,
+      "previousHash": "0",
+      "hash": "e1f538ada74887e12dd7576b35d19c4af4282207f6dce8d3d521ef85d9f6abc6",
+      "nonce": 0,
       "difficulty": 4
     }
   ],

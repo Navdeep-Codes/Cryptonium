@@ -1,4 +1,3 @@
-// CTNM token configuration
 const ctnmTokenomics = {
   name: 'Cryptonium',
   symbol: 'CTNM',

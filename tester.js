@@ -1,7 +1,6 @@
 const http = require('http');
 const https = require('https');
 
-// Configuration
 const API_URL = process.env.API_URL || 'http://localhost:3000';
 const API_PROTOCOL = API_URL.startsWith('https') ? https : http;
 const API_HOSTNAME = new URL(API_URL).hostname;
@@ -14,7 +13,6 @@ console.log('Current Date:', new Date().toISOString());
 console.log('-------------------------------------');
 
 
-// Simple HTTP request function
 function request(method, path, data = null, token = null) {
   return new Promise((resolve, reject) => {
     const options = {
@@ -66,7 +64,6 @@ function request(method, path, data = null, token = null) {
   });
 }
 
-// Run tests
 async function runTests() {
   try {
     console.log('1. Testing API connectivity...');
@@ -82,7 +79,6 @@ async function runTests() {
       return;
     }
 
-    // Register a test user
     console.log('\n2. Registering test user...');
     const testUser = {
       username: `tester_${Date.now().toString().slice(-5)}`,
@@ -101,7 +97,6 @@ async function runTests() {
       console.log('  Trying login instead...');
     }
     
-    // Login
     console.log('\n3. Logging in...');
     response = await request('POST', '/auth/login', testUser);
     
@@ -116,7 +111,6 @@ async function runTests() {
       return;
     }
     
-    // Get user profile
     console.log('\n4. Getting user profile...');
     response = await request('GET', '/user/profile', null, token);
     
@@ -130,7 +124,6 @@ async function runTests() {
       console.log('✗ Could not get profile (status:', response.status, ')');
     }
     
-    // Create transaction (to self for testing)
     console.log('\n5. Creating a transaction...');
     response = await request('POST', '/transaction', {
       to: userAddress, 
@@ -145,7 +138,6 @@ async function runTests() {
       console.log('  Error:', response.data.error || 'Unknown error');
     }
     
-    // Mine a block
     console.log('\n6. Mining a block...');
     response = await request('POST', '/mine', null, token);
     
@@ -158,7 +150,6 @@ async function runTests() {
       console.log('  Error:', response.data.error || 'Unknown error');
     }
     
-    // Get transaction history
     console.log('\n7. Getting transaction history...');
     response = await request('GET', '/transactions/history', null, token);
     
@@ -176,7 +167,6 @@ async function runTests() {
       console.log('✗ Could not get transaction history (status:', response.status, ')');
     }
     
-    // Get blocks
     console.log('\n8. Getting blockchain blocks...');
     response = await request('GET', '/blocks');
     

@@ -9,7 +9,6 @@ class P2PNetwork {
         this.port = port;
         this.knownPeers = new Set();
         
-        // Listen for blockchain events
         this.setupBlockchainEvents();
     }
     
@@ -42,19 +41,16 @@ class P2PNetwork {
         this.initMessageHandler(socket);
         this.initErrorHandler(socket);
         
-        // Send blockchain state to the new peer
         this.sendMessage(socket, {
             type: 'BLOCKCHAIN_RESPONSE',
             data: this.blockchain.chain
         });
         
-        // Send list of peers
         this.sendMessage(socket, {
             type: 'PEERS_RESPONSE',
             data: Array.from(this.knownPeers)
         });
         
-        // Query peer for their known peers
         this.sendMessage(socket, {
             type: 'PEERS_QUERY'
         });
@@ -130,7 +126,6 @@ class P2PNetwork {
     }
     
     handleBlockchainResponse(receivedChain) {
-        // Compare received chain with our chain
         const localChainLength = this.blockchain.chain.length;
         const receivedChainLength = receivedChain.length;
         
@@ -165,11 +160,9 @@ class P2PNetwork {
     }
     
     handleNewBlock(block) {
-        // Validate the received block
         const latestBlock = this.blockchain.getLatestBlock();
         
         if (block.previousHash === latestBlock.hash && block.index === latestBlock.index + 1) {
-            // Valid block, add to chain
             this.blockchain.chain.push(block);
             console.log('Added block received from network');
             

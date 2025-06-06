@@ -1,6 +1,5 @@
 const SHA256 = require('crypto-js/sha256');
 
-// Contract types
 const CONTRACT_TYPES = {
   TOKEN: 'token',
   CUSTOM: 'custom'
@@ -27,10 +26,8 @@ class SmartContract {
     }
     
     try {
-      // Execute the method
       const result = this.code[method](this.state, params, { sender });
       
-      // Update contract state
       if (result.newState) {
         this.state = { ...this.state, ...result.newState };
       }
@@ -46,13 +43,11 @@ class TokenContract extends SmartContract {
   constructor(owner, name, symbol, decimals, initialSupply, maxSupply) {
     
     const tokenCode = {
-      // Transfer tokens from sender to recipient
       transfer: (state, { to, amount }, { sender }) => {
         if (!state.balances[sender] || state.balances[sender] < amount) {
           throw new Error('Insufficient balance');
         }
         
-        // Update balances
         state.balances[sender] -= amount;
         state.balances[to] = (state.balances[to] || 0) + amount;
         
@@ -62,7 +57,6 @@ class TokenContract extends SmartContract {
         };
       },
       
-      // Allow another address to spend tokens on behalf of the owner
       approve: (state, { spender, amount }, { sender }) => {
         if (!state.allowances[sender]) {
           state.allowances[sender] = {};
@@ -76,25 +70,20 @@ class TokenContract extends SmartContract {
         };
       },
       
-      // Transfer tokens from one address to another (if approved)
       transferFrom: (state, { from, to, amount }, { sender }) => {
-        // Check allowance
         if (!state.allowances[from] || 
             !state.allowances[from][sender] || 
             state.allowances[from][sender] < amount) {
           throw new Error('Insufficient allowance');
         }
         
-        // Check balance
         if (!state.balances[from] || state.balances[from] < amount) {
           throw new Error('Insufficient balance');
         }
         
-        // Update balances
         state.balances[from] -= amount;
         state.balances[to] = (state.balances[to] || 0) + amount;
         
-        // Update allowance
         state.allowances[from][sender] -= amount;
         
         return { 
@@ -106,19 +95,15 @@ class TokenContract extends SmartContract {
         };
       },
       
-      // Mint new tokens (only owner)
       mint: (state, { to, amount }, { sender }) => {
-        // Check if sender is contract owner
         if (sender !== state.owner) {
           throw new Error('Only owner can mint tokens');
         }
         
-        // Check max supply
         if (state.totalSupply + amount > state.maxSupply) {
           throw new Error('Exceeds maximum supply');
         }
         
-        // Update balance and total supply
         state.balances[to] = (state.balances[to] || 0) + amount;
         state.totalSupply += amount;
         
@@ -131,14 +116,11 @@ class TokenContract extends SmartContract {
         };
       },
       
-      // Burn tokens
       burn: (state, { amount }, { sender }) => {
-        // Check balance
         if (!state.balances[sender] || state.balances[sender] < amount) {
           throw new Error('Insufficient balance');
         }
         
-        // Update balance and total supply
         state.balances[sender] -= amount;
         state.totalSupply -= amount;
         
@@ -151,7 +133,6 @@ class TokenContract extends SmartContract {
         };
       },
       
-      // Get token balance
       balanceOf: (state, { address }) => {
         return { 
           newState: {},
@@ -159,7 +140,6 @@ class TokenContract extends SmartContract {
         };
       },
       
-      // Get token allowance
       allowance: (state, { owner, spender }) => {
         const allowance = state.allowances[owner] ? 
           (state.allowances[owner][spender] || 0) : 0;
@@ -171,7 +151,6 @@ class TokenContract extends SmartContract {
       }
     };
     
-    // Initial state for token contract
     const initialState = {
       name,
       symbol,
@@ -183,13 +162,11 @@ class TokenContract extends SmartContract {
       allowances: {}
     };
     
-    // Assign initial supply to owner
     initialState.balances[owner] = initialSupply;
     
     super(owner, CONTRACT_TYPES.TOKEN, tokenCode, initialState);
   }
   
-  // Helper methods specific to tokens
   getName() {
     return this.state.name;
   }

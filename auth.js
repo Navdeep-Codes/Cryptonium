@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 
-// User schema for authentication
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
@@ -21,21 +20,18 @@ class AuthManager {
     
     async registerUser(username, password, address, privateKey) {
         try {
-            // Check if user already exists
             const existingUser = await UserModel.findOne({ username });
             if (existingUser) {
                 return { success: false, message: 'Username already exists' };
             }
             
-            // Hash password
             const hashedPassword = await bcrypt.hash(password, 10);
             
-            // Create user
             const user = new UserModel({
                 username,
                 password: hashedPassword,
                 address,
-                privateKey: this.encryptPrivateKey(privateKey), // Encrypt private key
+                privateKey: this.encryptPrivateKey(privateKey), 
                 isAdmin: false
             });
             
@@ -57,19 +53,16 @@ class AuthManager {
     
     async authenticateUser(username, password) {
         try {
-            // Find user
             const user = await UserModel.findOne({ username });
             if (!user) {
                 return { success: false, message: 'User not found' };
             }
             
-            // Check password
             const isValid = await bcrypt.compare(password, user.password);
             if (!isValid) {
                 return { success: false, message: 'Invalid password' };
             }
             
-            // Generate JWT token
             const token = this.generateToken(user);
             
             return { 
@@ -109,20 +102,15 @@ class AuthManager {
     }
     
     encryptPrivateKey(privateKey) {
-        // In a real implementation, this would use proper encryption
-        // This is a simplified version for demonstration
         return `encrypted:${privateKey}`;
     }
     
     decryptPrivateKey(encryptedKey) {
-        // In a real implementation, this would use proper decryption
         return encryptedKey.replace('encrypted:', '');
     }
-    
-    // Middleware for protecting routes
+
     authMiddleware(req, res, next) {
         try {
-            // Get token from header
             const authHeader = req.headers.authorization;
             if (!authHeader || !authHeader.startsWith('Bearer ')) {
                 return res.status(401).json({ error: 'Authentication token required' });
@@ -143,7 +131,6 @@ class AuthManager {
         }
     }
     
-    // Middleware for admin-only routes
     adminMiddleware(req, res, next) {
         if (!req.user || !req.user.isAdmin) {
             return res.status(403).json({ error: 'Admin access required' });

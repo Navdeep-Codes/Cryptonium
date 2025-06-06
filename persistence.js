@@ -55,7 +55,6 @@ class BlockchainPersistence {
         try {
             await BlockModel.deleteMany({});
             
-            // Save each block to the database
             const savePromises = blockchain.chain.map(block => {
                 const blockDoc = new BlockModel({
                     index: block.index,
@@ -71,8 +70,7 @@ class BlockchainPersistence {
             
             await Promise.all(savePromises);
             console.log(`Chain saved to database: ${blockchain.chain.length} blocks`);
-            
-            // Backup to file as well
+
             this.saveToFile(blockchain);
             
             return true;
@@ -88,7 +86,6 @@ class BlockchainPersistence {
         }
         
         try {
-            // Load blocks from database
             const blocks = await BlockModel.find({}).sort({ index: 1 });
             
             if (blocks.length === 0) {
@@ -100,7 +97,7 @@ class BlockchainPersistence {
             return blocks;
         } catch (error) {
             console.error('Failed to load blockchain from database:', error);
-            return this.loadFromFile(); // Fallback to file storage
+            return this.loadFromFile(); 
         }
     }
     
@@ -110,10 +107,8 @@ class BlockchainPersistence {
         }
         
         try {
-            // Clear previous pending transactions
             await TransactionModel.deleteMany({ blockIndex: null });
             
-            // Save each pending transaction
             const savePromises = transactions.map(tx => {
                 const txDoc = new TransactionModel({
                     from: tx.from,
@@ -141,7 +136,6 @@ class BlockchainPersistence {
         }
         
         try {
-            // Load pending transactions
             const transactions = await TransactionModel.find({ blockIndex: null });
             return transactions;
         } catch (error) {
