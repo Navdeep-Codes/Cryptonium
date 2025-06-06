@@ -1,7 +1,7 @@
 const http = require('http');
 const https = require('https');
 
-const API_URL = process.env.API_URL || 'http://localhost:3000';
+const API_URL = process.env.API_URL || 'http://localhost:1586';
 const API_PROTOCOL = API_URL.startsWith('https') ? https : http;
 const API_HOSTNAME = new URL(API_URL).hostname;
 const API_PORT = new URL(API_URL).port || (API_URL.startsWith('https') ? 443 : 80);
@@ -123,8 +123,19 @@ async function runTests() {
     } else {
       console.log('✗ Could not get profile (status:', response.status, ')');
     }
+  
+    console.log('\n5. Mining a block...');
+    response = await request('POST', '/mine', null, token);
     
-    console.log('\n5. Creating a transaction...');
+        if (response.status === 200) {
+      console.log('✓ Block mined successfully');
+      console.log('  Block index:', response.data.block?.index);
+      console.log('  Block hash:', response.data.block?.hash?.substr(0, 10) + '...');
+    } else {
+      console.log('✗ Mining failed (status:', response.status, ')');
+      console.log('  Error:', response.data.error || 'Unknown error');
+    }
+    console.log('\n6. Creating a transaction...');
     response = await request('POST', '/transaction', {
       to: userAddress, 
       amount: 1
@@ -137,19 +148,6 @@ async function runTests() {
       console.log('✗ Transaction failed (status:', response.status, ')');
       console.log('  Error:', response.data.error || 'Unknown error');
     }
-    
-    console.log('\n6. Mining a block...');
-    response = await request('POST', '/mine', null, token);
-    
-    if (response.status === 200) {
-      console.log('✓ Block mined successfully');
-      console.log('  Block index:', response.data.block?.index);
-      console.log('  Block hash:', response.data.block?.hash?.substr(0, 10) + '...');
-    } else {
-      console.log('✗ Mining failed (status:', response.status, ')');
-      console.log('  Error:', response.data.error || 'Unknown error');
-    }
-    
     console.log('\n7. Getting transaction history...');
     response = await request('GET', '/transactions/history', null, token);
     

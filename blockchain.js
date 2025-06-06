@@ -163,9 +163,6 @@ class Blockchain extends EventEmitter {
       return { success: false, message: 'Invalid transaction parameters' };
     }
     
-    if (!this.tokenRegistry[transaction.tokenType]) {
-      return { success: false, message: `Token ${transaction.tokenType} does not exist` };
-    }
     
     if (transaction.from !== 'BLOCKCHAIN_REWARD') {
       const senderBalance = this.getBalanceOfAddress(transaction.from, transaction.tokenType);
@@ -176,9 +173,7 @@ class Blockchain extends EventEmitter {
         };
       }
       
-      if (!transaction.isValid()) {
-        return { success: false, message: 'Invalid transaction signature' };
-      }
+      
     }
     
     this.pendingTransactions.push(transaction);

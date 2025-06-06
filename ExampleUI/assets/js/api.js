@@ -88,7 +88,7 @@ const api = {
         },
 
         async createTransaction(to, amount) {
-            return api.call('POST', '/transaction', { to, amount });
+            return api.call('POST', '/transaction',{ to,amount,tokenType:'CTNM'});
         },
 
         async mineBlock() {

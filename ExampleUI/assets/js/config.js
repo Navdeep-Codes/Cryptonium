@@ -1,10 +1,10 @@
 
 const config = {
-    apiUrl: 'http://cryptonium.api.navdeepsingh.tech',
+    apiUrl: 'http://localhost:1586',
     
     tokenStorageKey: 'ctnm_auth_token',
     userStorageKey: 'ctnm_user_data',
-    
+
     maxRecentTransactions: 10,
     maxBlocksPerPage: 10,
     refreshInterval: 30000, 
