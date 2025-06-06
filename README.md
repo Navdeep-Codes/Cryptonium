@@ -2,9 +2,9 @@
 ## A open source blockchain and with API end points 
 ### This does not hold any value in the real world it is just made for fun
 ## Made with 💖 by Navdeep
-This is a fully operational bloackchain that u can interact with at cryptonium.navdeepsingh.tech (please dont go one UI the project is very backend heavy).
+This is a fully operational bloackchain that u can interact with at https://cryptonium.navdeepsingh.tech (please dont go one UI the project is very backend heavy).
 ## API Endpoints
-It also has API endpoints wchich are availaible at the URL cryptonium.api.navdeepsingh.tech. Here are the list of API endpoints
+It also has API endpoints wchich are availaible at the URL `cryptonium.api.navdeepsingh.tech`. Here are the list of API endpoints
 - `/blockchain/info` - Get the blockchain info
 - `/auth/register` - Register a user
 - `/auth/login` - Login a user
